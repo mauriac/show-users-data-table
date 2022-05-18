@@ -33,6 +33,7 @@ declare(strict_types=1);
             <?php endforeach; ?>
         </tbody>
 </table>
+<div id="shut_user_details" class=""></div>
 
 </body>
 </html>

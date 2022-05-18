@@ -50,6 +50,8 @@ class ShudatPublic
         add_action('wp_enqueue_scripts', [$this, 'enqueueStyles']);
         add_action('wp_enqueue_scripts', [$this, 'enqueueScripts']);
         add_action('parse_request', [$this, 'parseRequest']);
+        add_action('wp_ajax_get-user-details', [$this, 'retrieveUserDetails']);
+        add_action('wp_ajax_nopriv_get-user-details', [$this, 'retrieveUserDetails']);
     }
 
     /**
@@ -83,6 +85,11 @@ class ShudatPublic
             false
         );
 
+        $data = [
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'shut_ajax_security' => wp_create_nonce('shut-ajax-nonce'),
+        ];
+        wp_add_inline_script($this->pluginName, 'const shutData = ' . wp_json_encode($data));
     }
 
     /**
@@ -103,5 +110,24 @@ class ShudatPublic
             load_template(plugin_dir_path(__FILE__) . 'showTable.php', true, $usersList);
             exit;
         }
+    }
+
+    /**
+     * Gets user details
+     *
+     * @return void
+     */
+    public function retrieveUserDetails()
+    {
+        if (check_ajax_referer('shut-ajax-nonce', 'security')) {
+            $userId = filter_input(INPUT_POST, 'userId', FILTER_SANITIZE_NUMBER_INT);
+            $url = 'https://jsonplaceholder.typicode.com/users/' . $userId;
+            $args = [];
+            $response = wp_remote_get($url, $args);
+            if (\WP_Http::OK === wp_remote_retrieve_response_code($response)) {
+                wp_die(esc_html(wp_remote_retrieve_body($response)));
+            }
+        }
+        wp_send_json_error(__('failed to get user details', 'shut'));
     }
 }
