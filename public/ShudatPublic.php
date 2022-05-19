@@ -63,7 +63,7 @@ class ShudatPublic
     {
         wp_enqueue_style(
             $this->pluginName,
-            plugin_dir_url(__FILE__) . 'css/shut-public.css',
+            plugin_dir_url(__FILE__) . 'css/ShudatPublic.css',
             [],
             $this->version,
             'all'
@@ -79,7 +79,7 @@ class ShudatPublic
     {
         wp_enqueue_script(
             $this->pluginName,
-            plugin_dir_url(__FILE__) . 'js/shut-public.js',
+            plugin_dir_url(__FILE__) . 'js/ShudatPublic.js',
             [ 'jquery' ],
             $this->version,
             false
@@ -107,7 +107,7 @@ class ShudatPublic
             $response = wp_remote_get($url, $args);
             $usersList = json_decode(wp_remote_retrieve_body($response), true);
 
-            load_template(plugin_dir_path(__FILE__) . 'showTable.php', true, $usersList);
+            load_template(plugin_dir_path(__FILE__) . 'ShowTable.php', true, $usersList);
             exit;
         }
     }
