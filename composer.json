@@ -1,0 +1,16 @@
+{
+    "name": "mauriac/show-users-data-table",
+    "description": "WordPress plugin to display users data in html table",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "mauriac",
+            "email": "azouamauriac@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "inpsyde/php-coding-standards": "^1.0"
+    }
+}
