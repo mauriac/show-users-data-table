@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<ruleset name="Shudat">
+    <file>./</file>
+	<exclude-pattern>/vendor/*</exclude-pattern>
+    <rule ref="Inpsyde"/>
+</ruleset>
