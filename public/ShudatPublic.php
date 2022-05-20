@@ -102,12 +102,14 @@ class ShudatPublic
     {
 
         if ('users-table' === $wp->request) {
-            $url = 'https://jsonplaceholder.typicode.com/users/';
-            $args = [];
-            $response = wp_remote_get($url, $args);
-            $usersList = json_decode(wp_remote_retrieve_body($response), true);
-
-            load_template(plugin_dir_path(__FILE__) . 'ShowTable.php', true, $usersList);
+            $url = 'https://jsonplaceholder.typicode.com/uers/';
+            $response = wp_remote_get($url);
+            if (\WP_Http::OK === wp_remote_retrieve_response_code($response)) {
+                $usersList = json_decode(wp_remote_retrieve_body($response), true);
+                load_template(plugin_dir_path(__FILE__) . 'ShowTable.php', true, $usersList);
+            } else {
+                echo esc_html__('No datas to display!', 'shudat');
+            }
             exit;
         }
     }
