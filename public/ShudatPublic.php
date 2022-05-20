@@ -37,12 +37,12 @@ class ShudatPublic
         $this->pluginName = $pluginName;
         $this->version = $version;
     }
-    
+
     /**
      * Run all wp hook
      *
      * @since 1.0.0
-	 *
+     *
      * @return void
      */
     public function run()
@@ -124,8 +124,7 @@ class ShudatPublic
         if (check_ajax_referer('shut-ajax-nonce', 'security')) {
             $userId = filter_input(INPUT_POST, 'userId', FILTER_SANITIZE_NUMBER_INT);
             $url = 'https://jsonplaceholder.typicode.com/users/' . $userId;
-            $args = [];
-            $response = wp_remote_get($url, $args);
+            $response = wp_remote_get($url);
             if (\WP_Http::OK === wp_remote_retrieve_response_code($response)) {
                 wp_die(esc_html(wp_remote_retrieve_body($response)));
             }

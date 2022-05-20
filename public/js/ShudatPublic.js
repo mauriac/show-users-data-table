@@ -3,7 +3,8 @@
     $(window).load(
         function () {
             $('td a').on(
-                'click', function (e) {
+                'click',
+                function (e) {
                     e.preventDefault();
                     let showUserDetailsId = $('#shut_user_details');
                     if (showUserDetailsId.hasClass('loader') ) {
