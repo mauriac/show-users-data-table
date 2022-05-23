@@ -23,14 +23,20 @@
                             security : shutData.shut_ajax_security
                         },
                         function (data) {
-                            $('#shut_user_details').removeClass('loader');
-                            $('#shut_user_details').html(data);
+                            if (true !== data.success) {
+                                console.log(data);
+                                return;
+                            }
+                            $('#shut_user_details').html(data.data);
                         }
                     )
                     .fail(
                         function (data) {
-                            $('#shut_user_details').removeClass('loader');
                             console.log(data);
+                        }
+                    ).always(
+                        function () {
+                            $('#shut_user_details').removeClass('loader');
                         }
                     );
                 }

@@ -100,18 +100,28 @@ class ShudatPublic
      */
     public function parseRequest($wp)
     {
-
-        if ('users-table' === $wp->request) {
-            $url = 'https://jsonplaceholder.typicode.com/uers/';
-            $response = wp_remote_get($url);
-            if (\WP_Http::OK === wp_remote_retrieve_response_code($response)) {
-                $usersList = json_decode(wp_remote_retrieve_body($response), true);
-                load_template(plugin_dir_path(__FILE__) . 'ShowTable.php', true, $usersList);
-            } else {
-                echo esc_html__('No datas to display!', 'shudat');
-            }
-            exit;
+        if ('users-table' !== $wp->request) {
+            return;
         }
+        $usersList = get_transient(SHUDAT_TEXT_DOMAIN . '_USERS');
+        if (! $usersList) {
+            $url = 'https://jsonplaceholder.typicode.com/users/';
+            $response = wp_remote_get($url);
+            if (200 !== wp_remote_retrieve_response_code($response)) {
+                echo esc_html__('No data to display!', 'shudat');
+                exit;
+            }
+
+            $usersList = json_decode(wp_remote_retrieve_body($response), true);
+            if (! $usersList) {
+                exit;
+            }
+
+            set_transient(SHUDAT_TEXT_DOMAIN . '_USERS', $usersList, 3600);
+            set_transient(SHUDAT_TEXT_DOMAIN . '_USERS_DETAIL', $usersList, 3600);
+        }
+        load_template(plugin_dir_path(__FILE__) . 'ShowTable.php', true, $usersList);
+        exit;
     }
 
     /**
@@ -123,12 +133,28 @@ class ShudatPublic
     {
         if (check_ajax_referer('shut-ajax-nonce', 'security')) {
             $userId = filter_input(INPUT_POST, 'userId', FILTER_SANITIZE_NUMBER_INT);
+
+            $usersList = get_transient(SHUDAT_TEXT_DOMAIN . '_USERS_DETAIL');
+            if (isset($usersList[$userId - 1])) {
+                $userData = is_array($usersList[$userId - 1]) ? json_encode($usersList[$userId - 1]) : $usersList[$userId - 1];
+
+                wp_send_json_success($userData);
+            }
             $url = 'https://jsonplaceholder.typicode.com/users/' . $userId;
             $response = wp_remote_get($url);
-            if (\WP_Http::OK === wp_remote_retrieve_response_code($response)) {
-                wp_die(esc_html(wp_remote_retrieve_body($response)));
+            if (200 !== wp_remote_retrieve_response_code($response)) {
+                wp_send_json_error(__('Failed to get user details!', 'shudat'));
             }
+
+            $userData = wp_remote_retrieve_body($response);
+            if (! $userData) {
+                wp_send_json_error(__('No data to display!', 'shudat'));
+            }
+
+            $usersList[$userId - 1] = $userData;
+            set_transient(SHUDAT_TEXT_DOMAIN . '_USERS_DETAIL', $usersList, 3600);
+            wp_send_json_success($userData);
         }
-        wp_send_json_error(__('failed to get user details', 'shut'));
+        wp_send_json_error(__('Wrong request!', 'shudat'));
     }
 }
