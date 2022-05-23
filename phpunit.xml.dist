@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="tests/bootstrap.php" backupGlobals="false" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage cacheDirectory=".phpunit.cache/code-coverage" processUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">public</directory>
+    </include>
+    <exclude>
+      <directory>tests</directory>
+      <directory>vendor</directory>
+	  <directory>public/ShowTable.php</directory>
+    </exclude>
+    <report>
+      <html outputDirectory="tmp"/>
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="default">
+      <directory suffix=".php">./tests/Units</directory>
+      <exclude>./vendor</exclude>
+    </testsuite>
+  </testsuites>
+</phpunit>
+
