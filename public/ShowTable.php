@@ -10,7 +10,7 @@ declare(strict_types=1);
 </head>
 <body>
 
-<h2>HTML Table</h2>
+<h2><?php echo esc_html__('Users Table', 'shudat'); ?></h2>
 
 <table>
     <?php
