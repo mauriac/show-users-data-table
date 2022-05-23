@@ -2,5 +2,6 @@
 <ruleset name="Shudat">
     <file>./</file>
 	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/tests/*</exclude-pattern>
     <rule ref="Inpsyde"/>
 </ruleset>
