@@ -109,19 +109,19 @@ class ShudatPublic
             $response = wp_remote_get($url);
             if (200 !== wp_remote_retrieve_response_code($response)) {
                 echo esc_html__('No data to display!', 'shudat');
-                exit;
+                self::exitCode();
             }
 
             $usersList = json_decode(wp_remote_retrieve_body($response), true);
             if (! $usersList) {
-                exit;
+                self::exitCode();
             }
 
             set_transient(SHUDAT_TEXT_DOMAIN . '_USERS', $usersList, 3600);
             set_transient(SHUDAT_TEXT_DOMAIN . '_USERS_DETAIL', $usersList, 3600);
         }
         load_template(plugin_dir_path(__FILE__) . 'ShowTable.php', true, $usersList);
-        exit;
+        self::exitCode();
     }
 
     /**
@@ -156,5 +156,17 @@ class ShudatPublic
             wp_send_json_success($userData);
         }
         wp_send_json_error(__('Wrong request!', 'shudat'));
+    }
+
+    /**
+     * Exits from the Code
+     *
+     * @return void
+     */
+    public static function exitCode()
+    {
+        if (! defined('PHPUNIT_RUNNING') || ! PHPUNIT_RUNNING === 1) {
+            exit;
+        }
     }
 }
