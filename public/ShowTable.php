@@ -12,7 +12,7 @@ declare(strict_types=1);
     <body>
         <h2><?php echo esc_html__('Users Table', 'shudat'); ?></h2>
 
-        <div>
+        <div style="overflow-x:auto;">
             <table>
                 <?php
                 $tableHead = ['id', 'name', 'username'];
