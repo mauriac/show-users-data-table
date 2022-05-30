@@ -17,12 +17,13 @@ declare(strict_types=1);
         </div>
         <!-- End Top navigation -->
 
+        <!-- Table -->
         <h2><?php echo esc_html__('Users Table', 'shudat'); ?></h2>
 
         <div style="overflow-x:auto;">
             <table>
                 <?php
-                $tableHead = ['id', 'name', 'username'];
+                $tableHead = [ 'id', 'name', 'username' ];
                 ?>
                 <thead>
                     <tr>
@@ -35,13 +36,18 @@ declare(strict_types=1);
                     <?php foreach ($args as $key => $user) : ?>
                         <tr data-userid=<?php echo esc_attr($user['id']); ?>>
                             <?php foreach ($tableHead as $key => $headValue) : ?>
-                                <td><a class="" href="#"><?php echo esc_html($user[$headValue]); ?></a></td>
+                                <td>
+                                    <a href="#">
+                                        <?php echo esc_html($user[ $headValue ]); ?>
+                                    </a>
+                                </td>
                             <?php endforeach; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
+        <!-- End Table -->
         <div id="shut_user_details" class=""></div>
     </body>
 </html>
