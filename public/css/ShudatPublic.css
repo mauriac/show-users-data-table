@@ -5,7 +5,7 @@
     padding-left: 5%;
   }
 
-table {
+  table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -33,4 +33,33 @@ table {
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+  }
+
+  /* menu */
+  .topnav {
+    position: relative;
+    overflow: hidden;
+    background-color: #333;
+  }
+
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  /* Responsive navigation menu (for mobile devices) */
+  @media screen and (max-width: 600px) {
+    .topnav a {
+      float: none;
+      display: block;
+    }
   }

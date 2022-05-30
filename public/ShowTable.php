@@ -10,6 +10,13 @@ declare(strict_types=1);
     </head>
 
     <body>
+
+        <!-- Top navigation -->
+        <div class="topnav">
+            <a href="<?php echo esc_url(get_home_url()); ?>" class="active">Home</a>
+        </div>
+        <!-- End Top navigation -->
+
         <h2><?php echo esc_html__('Users Table', 'shudat'); ?></h2>
 
         <div style="overflow-x:auto;">
