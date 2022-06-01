@@ -38,11 +38,6 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'SHUDAT_VERSION', '1.0.0' );
 
-/**
- * Currently plugin text domain.
- */
-define( 'SHUDAT_TEXT_DOMAIN', 'shudat' );
-
 require_once plugin_dir_path( __FILE__ ) . 'public/ShudatPublic.php';
 
 

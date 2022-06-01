@@ -103,7 +103,7 @@ class ShudatPublic
         if ('users-table' !== $wp->request) {
             return;
         }
-        $usersList = get_transient(SHUDAT_TEXT_DOMAIN . '_USERS');
+        $usersList = get_transient('shudat_users');
         if (! $usersList) {
             $url = 'https://jsonplaceholder.typicode.com/users/';
             $response = wp_remote_get($url);
@@ -117,8 +117,8 @@ class ShudatPublic
                 self::exitCode();
             }
 
-            set_transient(SHUDAT_TEXT_DOMAIN . '_USERS', $usersList, 3600);
-            set_transient(SHUDAT_TEXT_DOMAIN . '_USERS_DETAIL', $usersList, 3600);
+            set_transient('shudat_users', $usersList, 3600);
+            set_transient('shudat_users_detail', $usersList, 3600);
         }
         load_template(plugin_dir_path(__FILE__) . 'ShowTable.php', true, $usersList);
         self::exitCode();
@@ -134,7 +134,7 @@ class ShudatPublic
         if (check_ajax_referer('shut-ajax-nonce', 'security')) {
             $userId = filter_input(INPUT_POST, 'userId', FILTER_SANITIZE_NUMBER_INT);
 
-            $usersList = get_transient(SHUDAT_TEXT_DOMAIN . '_USERS_DETAIL');
+            $usersList = get_transient('shudat_users_detail');
             if (isset($usersList[$userId - 1])) {
                 $userData = is_array($usersList[$userId - 1]) ? json_encode($usersList[$userId - 1]) : $usersList[$userId - 1];
 
@@ -152,7 +152,7 @@ class ShudatPublic
             }
 
             $usersList[$userId - 1] = $userData;
-            set_transient(SHUDAT_TEXT_DOMAIN . '_USERS_DETAIL', $usersList, 3600);
+            set_transient('shudat_users_detail', $usersList, 3600);
             wp_send_json_success($userData);
         }
         wp_send_json_error(__('Wrong request!', 'shudat'));

@@ -60,7 +60,6 @@ class ShutdatPublicTest extends AbstractUnitTestcase
 
     public function testParseRequest()
     {
-        define('SHUDAT_TEXT_DOMAIN', 'shudat');
         $wp = \Mockery::mock(WP::class);
         $wp->request = 'users-table';
 
