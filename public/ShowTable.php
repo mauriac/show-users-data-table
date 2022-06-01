@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * The Template for displaying users' data as html table. This template can be
+ * displayed at yourHomeLink/users-table .
+ *
+ * This template can be overridden by copying it to yourtheme/ShowTable.php.
+ * @version     1.0.0
+ */
+
 declare(strict_types=1);
 
 ?>

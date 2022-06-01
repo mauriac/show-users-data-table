@@ -120,7 +120,12 @@ class ShudatPublic
             set_transient('shudat_users', $usersList, 3600);
             set_transient('shudat_users_detail', $usersList, 3600);
         }
-        load_template(plugin_dir_path(__FILE__) . 'ShowTable.php', true, $usersList);
+
+        $templatePath = locate_template('ShowTable.php');
+        if (! $templatePath) {
+            $templatePath = plugin_dir_path(__FILE__) . 'ShowTable.php';
+        }
+        load_template($templatePath, true, $usersList);
         self::exitCode();
     }
 
