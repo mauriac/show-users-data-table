@@ -44,13 +44,14 @@
         }
     )
 
-    function formatData(dataParsed) {
+    function formatData(dataParsed)
+    {
         let toDisplay = '';
         for (const property in dataParsed) {
             if (typeof dataParsed[property] === 'object' ) {
-                toDisplay += '<div><strong>'+`${property}` +'</strong>: <div class="subcontent">' + formatData(dataParsed[property]) + '</div></div>';
+                toDisplay += '<div><strong>' + `${property}` + '</strong>: <div class="subcontent">' + formatData(dataParsed[property]) + '</div></div>';
             } else {
-                toDisplay += '<p><strong>'+`${property}` +'</strong>: <em>' + `${dataParsed[property]}` +'</em></p>';
+                toDisplay += '<p><strong>' + `${property}` + '</strong>: <em>' + `${dataParsed[property]}` + '</em></p>';
             }
         }
         return toDisplay;
