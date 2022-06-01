@@ -92,8 +92,9 @@ class ShutdatPublicTest extends AbstractUnitTestcase
         }';
         Functions\expect('wp_remote_retrieve_body')->once()->andReturn($fakeJson);
         Functions\expect('set_transient')->twice()->andReturnNull();
-        Functions\expect('load_template')->once()->andReturnNull();
+        Functions\expect('locate_template')->once()->andReturnNull();
         Functions\expect('plugin_dir_path')->once()->andReturnNull();
+        Functions\expect('load_template')->once()->andReturnNull();
 
         $shudatPublic = new ShudatPublic('', '');
         self::assertSame(null, $shudatPublic->parseRequest($wp));
