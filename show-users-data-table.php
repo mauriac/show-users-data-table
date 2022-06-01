@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The plugin bootstrap file
  *
@@ -14,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Show Users Data as Table
  * Plugin URI:        #
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       A plugin that displays users' data as an HTML table.
  * Version:           1.0.0
  * Author:            Mauriac Azoua
  * Author URI:        #
@@ -24,37 +25,15 @@
  * Domain Path:       /languages
  */
 
+declare(strict_types=1);
+
 namespace Shudat;
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if (! defined('WPINC')) {
+    die;
 }
 
-/**
- * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
- * Rename this for your plugin and update it as you release new versions.
- */
-define( 'SHUDAT_VERSION', '1.0.0' );
+require_once plugin_dir_path(__FILE__) . 'public/ShudatPublic.php';
 
-require_once plugin_dir_path( __FILE__ ) . 'public/ShudatPublic.php';
-
-
-
-/**
- * Begins execution of the plugin.
- *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
- *
- * @since    1.0.0
- */
-function runPlugin() {
-
-	$public = new ShudatPublic( 'shudat', SHUDAT_VERSION );
-	$public->run();
-
-}
-runPlugin();
+(new ShudatPublic('shudat', '1.0.0'))->run();
