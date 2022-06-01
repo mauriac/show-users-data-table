@@ -41,7 +41,12 @@ declare(strict_types=1);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($args as $key => $user) : ?>
+                    <?php
+                    // $args is equal to $usersList, sent by `load_template` function. phpcs is disabled for this line to avoid warning.
+                    // phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis
+                    foreach ($args as $key => $user) :
+                    // phpcs:enable VariableAnalysis.CodeAnalysis.VariableAnalysis
+                        ?>
                         <tr data-userid=<?php echo esc_attr($user['id']); ?>>
                             <?php foreach ($tableHead as $key => $headValue) : ?>
                                 <td>
