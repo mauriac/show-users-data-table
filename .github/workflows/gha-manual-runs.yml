@@ -30,4 +30,5 @@ jobs:
            ${{ github.job }} ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} :x: Test failed
           message-cancelled: |
            ${{ github.job }} ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} :x: Test canceled
+          refresh-message-position: yes
 
