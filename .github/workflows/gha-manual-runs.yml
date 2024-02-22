@@ -16,3 +16,18 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+
+      - uses: mshick/add-pr-comment@v2
+        if: always()
+        with:
+          message-id: php74_basic_cloning_basic_job
+          status: ${{ job.status }}
+          message: |
+           Test started ${{ github.job }}            
+          message-success: |
+           ${{ github.job }} ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} :heavy_check_mark: Test passed
+          message-failure: |
+           ${{ github.job }} ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} :x: Test failed
+          message-cancelled: |
+           ${{ github.job }} ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} :x: Test canceled
+
