@@ -28,7 +28,7 @@ jobs:
           done
 
       - name: Run tests
-        if: ${{ steps.files.outputs.checksum-changed == 'true' }}
+        # if: ${{ steps.files.outputs.checksum-changed == 'true' }}
         run: |
             echo "azerty ${{ steps.files.outputs }}"
 
