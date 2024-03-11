@@ -38,21 +38,15 @@ jobs:
 
             if [[ ${changed_file} != 'checksum.txt' ]]; then
               echo "name=checksum-changed::true" >> $GITHUB_OUTPUT
+              echo "true"
             else
               echo "name=checksum-changed::false" >> $GITHUB_OUTPUT
+              echo "false"
             fi
           done
-        # id: check-changes
-        # run: |
-        #   CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
-        #   if [[ $CHANGED_FILES == 'checksum.txt' ]]; then
-        #     echo "::set-output name=checksum-changed::true"
-        #   else
-        #     echo "::set-output name=checksum-changed::false"
-        #   fi
 
-      - name: Run tests
-        if: ${{ steps.check-changes.outputs.checksum-changed == 'true' }}
-        run: |
-          # Your test commands here 
+      # - name: Run tests
+      #   if: ${{ steps.check-changes.outputs.checksum-changed == 'true' }}
+      #   run: |
+      #     # Your test commands here 
 
