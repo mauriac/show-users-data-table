@@ -27,10 +27,9 @@ jobs:
             fi
           done
 
-      # - name: Run tests
-      #   if: ${{ steps.check-changes.outputs.checksum-changed == 'true' }}
-      #   run: |
-      #     # Your test commands here 
+      - name: Run tests
+        run: |
+              echo "popo ${{ steps.files.outputs.checksum-changed }}"
 
   Explore-GitHub-Actions:
     needs: check
