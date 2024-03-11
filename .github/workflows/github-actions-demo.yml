@@ -34,7 +34,7 @@ jobs:
 
   Explore-GitHub-Actions:
     needs: check
-    if: needs.check.steps.check-changes.outputs.checksum-changed == 'true'
+    if: needs.check.steps.files.outputs.checksum-changed == 'true'
     # if: needs.check.outputs.status == 'success'
     runs-on: ubuntu-latest
     steps:
