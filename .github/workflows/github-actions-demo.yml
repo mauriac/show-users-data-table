@@ -30,7 +30,7 @@ jobs:
       - name: Run tests
         if: ${{ steps.files.outputs.checksum-changed == 'true' }}
         run: |
-              echo "azaz ${{ steps.files.outputs.checksum-changed }}"
+            echo "azerty ${{ steps.files.outputs }}"
 
   Explore-GitHub-Actions:
     needs: check
