@@ -36,10 +36,10 @@ jobs:
           for changed_file in ${{ steps.files.outputs.all }}; do
             echo "Do something with this ${changed_file}."
 
-            if [[ ${changed_file} == 'checksum.txt' ]]; then
-              echo "::set-output name=checksum-changed::true"
+            if [[ ${changed_file} != 'checksum.txt' ]]; then
+              echo "name=checksum-changed::true" >> $GITHUB_OUTPUT
             else
-              echo "::set-output name=checksum-changed::false"
+              echo "name=checksum-changed::false" >> $GITHUB_OUTPUT
             fi
           done
         # id: check-changes
