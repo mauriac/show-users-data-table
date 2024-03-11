@@ -3,6 +3,9 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
   Explore-GitHub-Actions:
+    needs: check
+    if: ${{ steps.check-changes.outputs.checksum-changed == 'true' }}
+    # if: needs.check.outputs.status == 'success'
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -16,3 +19,28 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+
+  check:
+    # outputs:
+    #   status: ${{ steps.early.conclusion }}
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Check if only checksum file has been changed
+        id: check-changes
+        run: |
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          if [[ $CHANGED_FILES == 'checksum.txt' ]]; then
+            echo "::set-output name=checksum-changed::true"
+          else
+            echo "::set-output name=checksum-changed::false"
+          fi
+
+      - name: Run tests
+        if: ${{ steps.check-changes.outputs.checksum-changed == 'true' }}
+        run: |
+          # Your test commands here
+
