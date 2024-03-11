@@ -19,11 +19,11 @@ jobs:
             echo "Do something with this ${changed_file}."
 
             if [[ ${changed_file} != 'checksum.txt' ]]; then
-              echo "name=checksum-changed::true" >> $GITHUB_OUTPUT
-              echo "true"
+              echo "::set-output name=checksum-changed::true"
+              echo "lolo true"
             else
-              echo "name=checksum-changed::false" >> $GITHUB_OUTPUT
-              echo "false"
+              echo "::set-output name=checksum-changed::false"
+              echo "toto false"
             fi
           done
 
