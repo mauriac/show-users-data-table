@@ -1,8 +1,48 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Fast tests Demo
+run-name: ${{ github.actor }} is testing fast tests 🚀
 on: [push]
 jobs:
+  check:
+    # outputs:
+    #   status: ${{ steps.early.conclusion }}
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.chf.outputs.checksum}}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Check if only checksum file has been changed
+        id: files
+        uses: jitterbit/get-changed-files@v1
+
+      - id: chf
+        run: |
+          for changed_file in ${{ steps.files.outputs.modified }}; do
+            echo "Do something with this ${changed_file}."
+
+            if [[ ${changed_file} != 'checksum.txt' ]]; then
+              echo "checksum=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "checksum=false" >> "$GITHUB_OUTPUT"
+            fi
+          done
+
+      # - id: step1
+      #   run: echo "test=hello" >> "$GITHUB_OUTPUT"
+      # - id: step2
+      #   run: echo "test=world" >> "$GITHUB_OUTPUT"
+
+      # - name: Run tests
+      #   if: ${{ steps.chf.outputs.checksum == 'true' }}
+      #   run: |
+      #       echo "mmmm ${{ steps.chf.outputs.checksum }}"
+
   Explore-GitHub-Actions:
+    needs: check
+    if: needs.check.outputs.output1 == 'true'
+    # if: needs.check.outputs.status == 'success'
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
