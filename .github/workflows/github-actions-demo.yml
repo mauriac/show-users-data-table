@@ -19,15 +19,13 @@ jobs:
 
       - id: chf
         run: |
-          for changed_file in ${{ steps.files.outputs.all }}; do
+          for changed_file in ${{ steps.files.outputs.modified }}; do
             echo "Do something with this ${changed_file}."
 
             if [[ ${changed_file} != 'checksum.txt' ]]; then
               echo "checksum=true" >> "$GITHUB_OUTPUT"
-              echo "lolo true"
             else
               echo "checksum=false" >> "$GITHUB_OUTPUT"
-              echo "toto false"
             fi
           done
 
@@ -36,10 +34,10 @@ jobs:
       # - id: step2
       #   run: echo "test=world" >> "$GITHUB_OUTPUT"
 
-      - name: Run tests
-        if: ${{ steps.chf.outputs.checksum == 'true' }}
-        run: |
-            echo "mmmm ${{ steps.chf.outputs.checksum }}"
+      # - name: Run tests
+      #   if: ${{ steps.chf.outputs.checksum == 'true' }}
+      #   run: |
+      #       echo "mmmm ${{ steps.chf.outputs.checksum }}"
 
   Explore-GitHub-Actions:
     needs: check
