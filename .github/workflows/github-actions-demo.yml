@@ -6,6 +6,8 @@ jobs:
     # outputs:
     #   status: ${{ steps.early.conclusion }}
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.chf.outputs.checksum}}
     
     steps:
       - name: Checkout repository
@@ -41,7 +43,7 @@ jobs:
 
   Explore-GitHub-Actions:
     needs: check
-    if: needs.check.steps.chf.outputs.checksum == 'true'
+    if: needs.check.outputs.output1 == 'true'
     # if: needs.check.outputs.status == 'success'
     runs-on: ubuntu-latest
     steps:
