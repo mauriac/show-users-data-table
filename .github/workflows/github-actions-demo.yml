@@ -11,6 +11,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - id: step1
+        run: echo "test=hello" >> "$GITHUB_OUTPUT"
+      - id: step2
+        run: echo "test=world" >> "$GITHUB_OUTPUT"
+
       - name: Check if only checksum file has been changed
         id: files
         uses: jitterbit/get-changed-files@v1
@@ -30,7 +35,7 @@ jobs:
       - name: Run tests
         # if: ${{ steps.files.outputs.checksum-changed == 'true' }}
         run: |
-            echo "azerty ${{ steps.files.outputs.checksum-changed }}"
+            echo "azerty ${{ steps.step1.outputs.test }}"
 
   Explore-GitHub-Actions:
     needs: check
