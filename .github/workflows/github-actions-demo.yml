@@ -19,10 +19,10 @@ jobs:
             echo "Do something with this ${changed_file}."
 
             if [[ ${changed_file} != 'checksum.txt' ]]; then
-              echo "::set-output name=checksum-changed::true"
+              echo "checksum-changed=true" >> "$GITHUB_OUTPUT"
               echo "lolo true"
             else
-              echo "::set-output name=checksum-changed::false"
+              echo "checksum-changed=false" >> "$GITHUB_OUTPUT"
               echo "toto false"
             fi
           done
@@ -30,7 +30,7 @@ jobs:
       - name: Run tests
         # if: ${{ steps.files.outputs.checksum-changed == 'true' }}
         run: |
-            echo "azerty ${{ steps.files.outputs }}"
+            echo "azerty ${{ steps.files.outputs.checksum-changed }}"
 
   Explore-GitHub-Actions:
     needs: check
