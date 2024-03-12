@@ -14,6 +14,8 @@ jobs:
       - name: Check if only checksum file has been changed
         id: files
         uses: jitterbit/get-changed-files@v1
+
+      - id: chf
         run: |
           for changed_file in ${{ steps.files.outputs.all }}; do
             echo "Do something with this ${changed_file}."
@@ -35,7 +37,7 @@ jobs:
       - name: Run tests
         # if: ${{ steps.files.outputs.checksum-changed == 'true' }}
         run: |
-            echo "mmmm ${{ steps.step1.outputs.test }} ${{ steps.files.outputs.checksum }}"
+            echo "mmmm ${{ steps.step1.outputs.test }} ${{ steps.chf.outputs.checksum }}"
 
   Explore-GitHub-Actions:
     needs: check
