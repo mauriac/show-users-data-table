@@ -29,19 +29,19 @@ jobs:
             fi
           done
 
-      - id: step1
-        run: echo "test=hello" >> "$GITHUB_OUTPUT"
-      - id: step2
-        run: echo "test=world" >> "$GITHUB_OUTPUT"
+      # - id: step1
+      #   run: echo "test=hello" >> "$GITHUB_OUTPUT"
+      # - id: step2
+      #   run: echo "test=world" >> "$GITHUB_OUTPUT"
 
-      - name: Run tests
-        # if: ${{ steps.files.outputs.checksum-changed == 'true' }}
-        run: |
-            echo "mmmm ${{ steps.step1.outputs.test }} ${{ steps.chf.outputs.checksum }}"
+      # - name: Run tests
+      #   # if: ${{ steps.files.outputs.checksum-changed == 'true' }}
+      #   run: |
+      #       echo "mmmm ${{ steps.step1.outputs.test }} ${{ steps.chf.outputs.checksum }}"
 
   Explore-GitHub-Actions:
     needs: check
-    if: needs.check.steps.files.outputs.checksum-changed == 'true'
+    if: needs.check.steps.chf.outputs.checksum == 'true'
     # if: needs.check.outputs.status == 'success'
     runs-on: ubuntu-latest
     steps:
