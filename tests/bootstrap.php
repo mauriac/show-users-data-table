@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 $vendor = dirname(dirname(__FILE__)) . '/vendor/';
 if (! realpath($vendor)) {
