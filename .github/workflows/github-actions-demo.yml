@@ -1,6 +1,9 @@
 name: Fast tests Demo
 run-name: ${{ github.actor }} is testing fast tests 🚀
-on: [push]
+on: 
+  push:
+    paths-ignore:
+      - 'tests/**'
 jobs:
   check:
     # outputs:
