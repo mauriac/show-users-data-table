@@ -21,11 +21,6 @@ jobs:
     #     ls ${{ github.workspace }}
     - name: Install dependencies
       run: npm ci
-    - uses: "beta.gouv/check-url-action@main"
-      with:
-        baseUrl: https://beta.gouv.fr
-        uri: stats
-        output: stats.json
         # minExpectedRegex: ^stat
         # exactExpectedRegex: ^stats$
     # - name: Install Playwright Browsers
