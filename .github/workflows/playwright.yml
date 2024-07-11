@@ -13,9 +13,14 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 18
-    # - name: Where we are
-    #   run: |
-    #     pwd
+    - name: check url
+      run: |
+      curl -Isk http://www.google.com | head -n 1
+      curl -Isk https://single.tests.wp-staging.local | head -n 1
+
+    - name: Where we are
+      run: |
+        pwd
     # - name: List files in the repository
     #   run: |
     #     ls ${{ github.workspace }}
