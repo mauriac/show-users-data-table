@@ -1,0 +1,25 @@
+{
+  "name": "show-users-data-table",
+  "version": "1.0.0",
+  "description": "*Show Users Data as Table* is a WordPress plugin that displays users' data, retrieve by api request, as an HTML table.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mauriac/show-users-data-table.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mauriac/show-users-data-table/issues"
+  },
+  "homepage": "https://github.com/mauriac/show-users-data-table#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.45.1",
+    "@types/node": "^20.14.10"
+  }
+}

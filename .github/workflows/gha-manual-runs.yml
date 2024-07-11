@@ -16,3 +16,34 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+
+      - uses: mshick/add-pr-comment@v2
+        with:
+          message-id: ${{ github.run_id }}
+          status: ${{ job.status }}
+          message: |
+           Test started ${{ github.job }}            
+          message-success: |
+           ${{ github.job }} ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} :heavy_check_mark: Test passed
+          message-failure: |
+           ${{ github.job }} ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} :x: Test failed
+          message-cancelled: |
+           ${{ github.job }} ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} :x: Test canceled
+          allow-repeats: yes
+    
+  # update-comment:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/github-script@v6
+  #       with:
+  #         script: |
+  #           // Get the main comment ID (replace with your logic)
+  #           const mainCommentId = context.issue.comments.find(comment => comment.body.includes('Main status comment')).id;
+
+  #           // Update the comment with workflow status
+  #           github.rest.issues.updateComment({
+  #             comment_id: mainCommentId,
+  #             owner: context.repo.owner,
+  #             repo: context.repo.repo,
+  #             body: 'Workflow status: ${{ job.status }}'
+  #           });
