@@ -15,7 +15,7 @@ jobs:
         node-version: 18
     - name: check url
       run: |
-        curl -Isk https://single.tests.wp-staging.local | head -n 1
+        curl -Isk http://www.google.com | head -n 1
 
     - name: Where we are
       run: |
